@@ -1,0 +1,15 @@
+@model App.DTO.v1.LaboratoryDto
+@{ ViewData["Title"] = Localizer["LaboratoryDetails"]; }
+
+<h2>@Localizer["LaboratoryDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">Name</dt><dd class="col-sm-9">@Model.Name</dd>
+    <dt class="col-sm-3">Description</dt><dd class="col-sm-9">@Model.Description</dd>
+    <dt class="col-sm-3">Max Occupancy</dt><dd class="col-sm-9">@Model.MaxOccupancy</dd>
+    <dt class="col-sm-3">Department</dt><dd class="col-sm-9">@Model.DepartmentName</dd>
+    <dt class="col-sm-3">Location</dt><dd class="col-sm-9">@Model.LocationBuildingName</dd>
+    <dt class="col-sm-3">Equipment Count</dt><dd class="col-sm-9">@Model.EquipmentCount</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["Edit"]</a>
+<a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>

@@ -1,0 +1,31 @@
+@model WebApp.Areas.Admin.ViewModels.MaintenanceRecord.MaintenanceRecordIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["MaintenanceRecords"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["MaintenanceRecords"],
+    Localizer["CreateMaintenanceRecord"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/MaintenanceRecord/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["Equipment"],
+            Localizer["ScheduledDate"],
+            Localizer["CompletedDate"],
+            Localizer["Description"],
+            Localizer["Status"],
+            Localizer["PerformedBy"]
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

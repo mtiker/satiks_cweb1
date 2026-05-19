@@ -1,0 +1,29 @@
+@model WebApp.Areas.Admin.ViewModels.Department.DepartmentIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["Departments"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["Departments"],
+    Localizer["CreateDepartment"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/Department/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["Name"],
+            Localizer["CostCenter"],
+            Localizer["Laboratories"],
+            Localizer["Description"]
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

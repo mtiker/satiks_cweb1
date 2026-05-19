@@ -1,0 +1,16 @@
+@model App.DTO.v1.LocationDto
+@{ ViewData["Title"] = Localizer["DeleteLocation"]; }
+
+<h2>@Localizer["DeleteLocation"]</h2>
+<div class="alert alert-danger">@Localizer["ConfirmDeleteLocation", Model.BuildingName]</div>
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["BuildingName"]</dt><dd class="col-sm-9">@Model.BuildingName</dd>
+    <dt class="col-sm-3">@Localizer["Floor"]</dt><dd class="col-sm-9">@Model.Floor</dd>
+    <dt class="col-sm-3">@Localizer["Room"]</dt><dd class="col-sm-9">@Model.RoomNumber</dd>
+    <dt class="col-sm-3">@Localizer["Address"]</dt><dd class="col-sm-9">@Model.Address</dd>
+</dl>
+<form asp-action="Delete">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+    <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+</form>

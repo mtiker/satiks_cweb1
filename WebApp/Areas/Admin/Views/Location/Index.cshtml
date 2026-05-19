@@ -1,0 +1,29 @@
+@model WebApp.Areas.Admin.ViewModels.Location.LocationIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["Locations"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["Locations"],
+    Localizer["CreateLocation"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/Location/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["BuildingName"],
+            Localizer["Floor"],
+            Localizer["Room"],
+            Localizer["Address"]
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

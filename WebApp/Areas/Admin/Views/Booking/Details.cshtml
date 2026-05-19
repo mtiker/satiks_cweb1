@@ -1,0 +1,38 @@
+@model App.DTO.v1.BookingDto
+@{ ViewData["Title"] = Localizer["BookingDetails"]; }
+
+<h2>@Localizer["BookingDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["Equipment"]</dt><dd class="col-sm-9">@Model.EquipmentName</dd>
+    <dt class="col-sm-3">@Localizer["User"]</dt><dd class="col-sm-9">@Model.UserFullName</dd>
+    <dt class="col-sm-3">@Localizer["StartTime"]</dt><dd class="col-sm-9">@Model.StartTime.ToString("g")</dd>
+    <dt class="col-sm-3">@Localizer["EndTime"]</dt><dd class="col-sm-9">@Model.EndTime.ToString("g")</dd>
+    <dt class="col-sm-3">@Localizer["Status"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@GetStatusColor(Model.BookingStatus)">@Model.BookingStatus</span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["Purpose"]</dt><dd class="col-sm-9">@Model.Purpose</dd>
+    <dt class="col-sm-3">@Localizer["Notes"]</dt><dd class="col-sm-9">@Model.Notes</dd>
+</dl>
+
+@if (Model.BookingStatus == "Pending")
+{
+    <form asp-action="Confirm" asp-route-id="@Model.Id" method="post" class="d-inline">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-success">@Localizer["Confirm"]</button>
+    </form>
+    <form asp-action="Cancel" asp-route-id="@Model.Id" method="post" class="d-inline ms-2">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-warning">@Localizer["CancelBooking"]</button>
+    </form>
+}
+<a asp-action="Index" class="btn btn-secondary ms-2">@Localizer["BackToList"]</a>
+
+@functions {
+    string GetStatusColor(string status) => status switch
+    {
+        "Confirmed" => "success", "Cancelled" => "danger",
+        "Completed" => "secondary", "Pending" => "warning", _ => "secondary"
+    };
+}

@@ -1,0 +1,36 @@
+@model IReadOnlyList<WebApp.Areas.Admin.ViewModels.EquipmentCategory.EquipmentCategoryListItem>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td class="text-muted">@item.EquipmentCount</td>
+        <td>
+            @{
+                string requiresTrainingColor = item.RequiresTraining switch
+                {
+                    "true" => "warning",
+                    "false" => "secondary",
+                    _ => "secondary"
+                };
+            }
+            <span class="badge bg-@requiresTrainingColor">
+                @{
+                    string requiresTrainingText = item.RequiresTraining switch
+                    {
+                        "true" => "Yes",
+                        "false" => "No",
+                        _ => item.RequiresTraining
+                    };
+                }
+                @requiresTrainingText
+        </td>
+        <td class="text-muted small">@item.Description</td>
+        <td class="text-end">
+            <div class="btn-group btn-group-sm">
+                <a asp-area="Admin" asp-controller="EquipmentCategory" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                <a asp-area="Admin" asp-controller="EquipmentCategory" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+                <a asp-area="Admin" asp-controller="EquipmentCategory" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </td>
+    </tr>
+}

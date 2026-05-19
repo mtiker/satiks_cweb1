@@ -1,0 +1,31 @@
+@model WebApp.Areas.Admin.ViewModels.TrainingCertification.TrainingCertIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["TrainingCertifications"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["TrainingCertifications"],
+    Localizer["AddCertification"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/TrainingCertification/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["User"],
+            Localizer["EquipmentCategory"],
+            Localizer["CertifiedDate"],
+            Localizer["ExpiryDate"],
+            Localizer["Status"],
+            Localizer["CertificateReference"]
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

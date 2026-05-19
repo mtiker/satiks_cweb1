@@ -1,0 +1,22 @@
+@model App.DTO.v1.MaintenanceRecordDto
+@{ ViewData["Title"] = Localizer["MaintenanceRecordDetails"]; }
+
+<h2>@Localizer["MaintenanceRecordDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["Equipment"]</dt><dd class="col-sm-9">@Model.EquipmentName</dd>
+    <dt class="col-sm-3">@Localizer["Description"]</dt><dd class="col-sm-9">@Model.Description</dd>
+    <dt class="col-sm-3">@Localizer["ScheduledDate"]</dt><dd class="col-sm-9">@Model.ScheduledDate.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["CompletedDate"]</dt><dd class="col-sm-9">@Model.CompletedDate?.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["Type"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@(Model.IsScheduled ? "info" : "warning")">
+            @(Model.IsScheduled ? @Localizer["Scheduled"] : @Localizer["Reactive"])
+        </span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["Resolution"]</dt><dd class="col-sm-9">@Model.Resolution</dd>
+    <dt class="col-sm-3">@Localizer["Cost"]</dt><dd class="col-sm-9">@Model.Cost?.ToString("C")</dd>
+    <dt class="col-sm-3">@Localizer["PerformedBy"]</dt><dd class="col-sm-9">@Model.PerformedByUserName</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["Edit"]</a>
+<a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>

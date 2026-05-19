@@ -1,0 +1,45 @@
+@model WebApp.ViewModels.Shared.FilterState
+<form method="get" class="row g-2 mb-3">
+    <div class="col-sm-4">
+        <input type="text"
+               name="search"
+               value="@Model.SearchTerm"
+               class="form-control"
+               placeholder="Search..." />
+    </div>
+    @foreach (var filter in Model.Definitions)
+    {
+        <div class="col-sm-2">
+            @if (filter.Options != null && filter.Options.Any())
+            {
+                <select name="@filter.Key" class="form-select" onchange="this.form.submit()">
+                    <option value="">All @filter.Label</option>
+                    @foreach (var opt in filter.Options)
+                    {
+                        <option value="@opt.Value"
+                                selected="@(Model.CurrentValues.GetValueOrDefault(filter.Key) == opt.Value)">
+                            @opt.Text
+                        </option>
+                    }
+                </select>
+            }
+            else
+            {
+                <input type="date"
+                       name="@filter.Key"
+                       value="@Model.CurrentValues.GetValueOrDefault(filter.Key)"
+                       class="form-control"
+                       onchange="this.form.submit()"
+                       title="@filter.Label" />
+            }
+        </div>
+    }
+    <div class="col-sm-auto">
+        <button type="submit" class="btn btn-outline-secondary">
+            <i class="bi bi-search"></i>
+        </button>
+        <a href="?" class="btn btn-outline-secondary ms-1" title="Clear filters">
+            <i class="bi bi-x-lg"></i>
+        </a>
+    </div>
+</form>

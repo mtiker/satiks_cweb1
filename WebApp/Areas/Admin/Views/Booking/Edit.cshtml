@@ -1,0 +1,54 @@
+@model WebApp.Areas.Admin.ViewModels.Booking.BookingCreateEditViewModel
+@{
+    ViewData["Title"] = Localizer["Edit"] + " " + Localizer["Bookings"];
+    Layout = "_Layout";
+}
+
+<div class="row">
+    @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_AdminSidebar.cshtml")
+    <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+        <h2>@Localizer["Edit"] @Localizer["Bookings"]</h2>
+
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="EquipmentId" class="form-label">@Localizer["Equipment"]</label>
+                <select asp-for="EquipmentId" asp-items="Model.EquipmentSelectList"
+                        class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AppUserId" class="form-label">User</label>
+                <select asp-for="AppUserId" asp-items="Model.UserSelectList"
+                        class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartTime" class="form-label">@Localizer["StartTime"]</label>
+                <input asp-for="StartTime" type="datetime-local" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EndTime" class="form-label">@Localizer["EndTime"]</label>
+                <input asp-for="EndTime" type="datetime-local" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Purpose" class="form-label">@Localizer["Purpose"]</label>
+                <textarea asp-for="Purpose" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BookingStatus" class="form-label">@Localizer["Status"]</label>
+                <select asp-for="BookingStatus" asp-items="Model.StatusSelectList"
+                        class="form-select"></select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+            <a asp-action="Index" class="btn btn-outline-secondary ms-2">@Localizer["Cancel"]</a>
+        </form>
+    </main>
+</div>

@@ -1,0 +1,31 @@
+@model WebApp.Areas.Admin.ViewModels.CalibrationRecord.CalibrationRecordIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["CalibrationRecords"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["CalibrationRecords"],
+    Localizer["CreateCalibrationRecord"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/CalibrationRecord/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["Equipment"],
+            Localizer["CalibrationDate"],
+            Localizer["NextDue"],
+            Localizer["CertificateNumber"],
+            Localizer["Status"],
+            Localizer["CalibratedBy"]
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

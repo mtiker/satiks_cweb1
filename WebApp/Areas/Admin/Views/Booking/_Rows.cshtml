@@ -1,0 +1,35 @@
+@model IReadOnlyList<WebApp.Areas.Admin.ViewModels.Booking.BookingListItem>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a asp-area="Admin" asp-controller="Equipment" asp-action="Details" asp-route-id="@item.EquipmentId">
+                @item.EquipmentName
+            </a>
+        </td>
+        <td class="text-muted">@item.UserFullName</td>
+        <td class="text-muted small">@item.StartTime.ToString("g")</td>
+        <td class="text-muted small">@item.EndTime.ToString("g")</td>
+        <td>
+            @{
+                string statusColor = item.BookingStatus switch
+                {
+                    "Pending" => "warning",
+                    "Confirmed" => "success",
+                    "Cancelled" => "danger",
+                    "Completed" => "secondary",
+                    _ => "secondary"
+                };
+            }
+            <span class="badge bg-@statusColor">@item.BookingStatus</span>
+        </td>
+        <td class="text-muted small">@item.Purpose</td>
+        <td class="text-end">
+            <div class="btn-group btn-group-sm">
+                <a asp-area="Admin" asp-controller="Booking" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                <a asp-area="Admin" asp-controller="Booking" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+                <a asp-area="Admin" asp-controller="Booking" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </td>
+    </tr>
+}

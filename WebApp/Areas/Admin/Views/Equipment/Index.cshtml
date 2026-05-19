@@ -1,0 +1,32 @@
+@model WebApp.Areas.Admin.ViewModels.Equipment.EquipmentIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["Equipment"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["Equipment"],
+    Localizer["AddEquipment"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/Equipment/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["Name"],
+            Localizer["Serial"],
+            Localizer["Laboratory"],
+            Localizer["Category"],
+            Localizer["Condition"],
+            Localizer["AvailableForBooking"],
+            Localizer["RequiresTraining"],
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

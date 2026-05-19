@@ -1,0 +1,41 @@
+@model IReadOnlyList<WebApp.Areas.Admin.ViewModels.MaintenanceRecord.MaintenanceListItem>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a asp-area="Admin" asp-controller="Equipment" asp-action="Details" asp-route-id="@item.EquipmentId">
+                @item.EquipmentName
+            </a>
+        </td>
+        <td class="text-muted">@item.Description</td>
+        <td class="text-muted small">@item.ScheduledDate.ToString("d")</td>
+        <td class="text-muted small">@(item.CompletedDate.HasValue ? item.CompletedDate.Value.ToString("d") : "-")</td>
+        <td>
+            @{
+                string statusColor = item.Status switch
+                {
+                    "scheduled" => "info",
+                    "completed" => "warning",
+                    _ => "secondary"
+                };
+            }
+            <span class="badge bg-@statusColor">
+                @{
+                    string statusText = item.Status switch
+                    {
+                        "scheduled" => "Scheduled",
+                        "completed" => "Completed",
+                        _ => item.Status
+                    };
+                }
+                @statusText
+        </td>
+        <td class="text-end">
+            <div class="btn-group btn-group-sm">
+                <a asp-area="Admin" asp-controller="MaintenanceRecord" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                <a asp-area="Admin" asp-controller="MaintenanceRecord" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+                <a asp-area="Admin" asp-controller="MaintenanceRecord" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </td>
+    </tr>
+}

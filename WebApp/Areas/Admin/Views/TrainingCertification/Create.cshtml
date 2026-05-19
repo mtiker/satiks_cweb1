@@ -1,0 +1,51 @@
+@model WebApp.Areas.Admin.ViewModels.TrainingCertification.TrainingCertCreateEditViewModel
+@{ ViewData["Title"] = Localizer["Create"] + " " + Localizer["TrainingCertification"]; }
+
+<h2>@Localizer["Create"] @Localizer["TrainingCertification"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="AppUserId" class="form-label">@Localizer["User"]</label>
+                <select asp-for="AppUserId" asp-items="Model.UserSelectList" class="form-select">
+                    <option value="">@Localizer["SelectUser"]</option>
+                </select>
+                <span asp-validation-for="AppUserId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EquipmentCategoryId" class="form-label">@Localizer["EquipmentCategory"]</label>
+                <select asp-for="EquipmentCategoryId" asp-items="Model.CategorySelectList" class="form-select">
+                    <option value="">@Localizer["SelectCategory"]</option>
+                </select>
+                <span asp-validation-for="EquipmentCategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CertifiedDate" class="form-label">@Localizer["CertifiedDate"]</label>
+                <input asp-for="CertifiedDate" class="form-control" type="date" />
+                <span asp-validation-for="CertifiedDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ExpiryDate" class="form-label">@Localizer["ExpiryDate"]</label>
+                <input asp-for="ExpiryDate" class="form-control" type="date" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CertificateReference" class="form-label">@Localizer["CertificateReference"]</label>
+                <input asp-for="CertificateReference" class="form-control" />
+                <span asp-validation-for="CertificateReference" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">@Localizer["Create"]</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

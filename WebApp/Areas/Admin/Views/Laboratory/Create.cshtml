@@ -1,0 +1,53 @@
+@model WebApp.Areas.Admin.ViewModels.Laboratory.LaboratoryCreateEditViewModel
+@{ ViewData["Title"] = Localizer["CreateLaboratory"]; }
+
+<h2>@Localizer["CreateLaboratory"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="NameEn" class="form-label"></label>
+                <input asp-for="NameEn" class="form-control" />
+                <span asp-validation-for="NameEn" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NameEt" class="form-label"></label>
+                <input asp-for="NameEt" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="DescriptionEn" class="form-label"></label>
+                <textarea asp-for="DescriptionEn" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DescriptionEt" class="form-label"></label>
+                <textarea asp-for="DescriptionEt" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaxOccupancy" class="form-label"></label>
+                <input asp-for="MaxOccupancy" class="form-control" type="number" min="1" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="DepartmentId" class="form-label">Department</label>
+                <select asp-for="DepartmentId" asp-items="Model.DepartmentSelectList" class="form-select">
+                    <option value="">— Select Department —</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LocationId" class="form-label">Location</label>
+                <select asp-for="LocationId" asp-items="Model.LocationSelectList" class="form-select">
+                    <option value="">— Select Location —</option>
+                </select>
+                <span asp-validation-for="LocationId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

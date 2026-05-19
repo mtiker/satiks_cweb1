@@ -1,0 +1,34 @@
+@model App.DTO.v1.TrainingCertificationDto
+@{ ViewData["Title"] = Localizer["CertificationDetails"]; }
+
+<h2>@Localizer["CertificationDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["User"]</dt><dd class="col-sm-9">@Model.AppUserFullName</dd>
+    <dt class="col-sm-3">@Localizer["EquipmentCategory"]</dt><dd class="col-sm-9">@Model.EquipmentCategoryName</dd>
+    <dt class="col-sm-3">@Localizer["CertifiedDate"]</dt><dd class="col-sm-9">@Model.CertifiedDate.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["ExpiryDate"]</dt><dd class="col-sm-9">@Model.ExpiryDate?.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["CertificateRef"]</dt><dd class="col-sm-9">@Model.CertificateReference</dd>
+    <dt class="col-sm-3">@Localizer["Status"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@GetStatusColor(Model.Status)">@Model.Status</span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["ValidatedBy"]</dt><dd class="col-sm-9">@Model.ValidatedByUserName</dd>
+    <dt class="col-sm-3">@Localizer["ValidatedAt"]</dt><dd class="col-sm-9">@Model.ValidatedAt?.ToString("g")</dd>
+    <dt class="col-sm-3">@Localizer["ValidationComment"]</dt><dd class="col-sm-9">@Model.ValidationComment</dd>
+</dl>
+
+@if (Model.Status == "Pending")
+{
+    <a asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["ReviewAndUpdateStatus"]</a>
+}
+<a asp-action="Index" class="btn btn-secondary ms-2">@Localizer["BackToList"]</a>
+
+@functions {
+    string GetStatusColor(string status) => status switch
+    {
+        "Approved" => "success", "Pending" => "warning",
+        "Rejected" => "danger", "Revoked" => "danger",
+        "Expired" => "secondary", _ => "secondary"
+    };
+}

@@ -1,0 +1,17 @@
+@model IReadOnlyList<WebApp.Areas.Admin.ViewModels.Location.LocationListItem>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.BuildingName</td>
+        <td class="text-muted">@item.Floor</td>
+        <td class="text-muted">@item.RoomNumber</td>
+        <td class="text-muted small">@item.Address</td>
+        <td class="text-end">
+            <div class="btn-group btn-group-sm">
+                <a asp-area="Admin" asp-controller="Location" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                <a asp-area="Admin" asp-controller="Location" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+                <a asp-area="Admin" asp-controller="Location" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </td>
+    </tr>
+}

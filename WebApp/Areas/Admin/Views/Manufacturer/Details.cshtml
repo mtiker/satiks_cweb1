@@ -1,0 +1,26 @@
+@model App.DTO.v1.ManufacturerDto
+@{ ViewData["Title"] = Localizer["ManufacturerDetails"]; }
+
+<h2>@Localizer["ManufacturerDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["Name"]</dt><dd class="col-sm-9">@Model.Name</dd>
+    <dt class="col-sm-3">@Localizer["Country"]</dt><dd class="col-sm-9">@Model.Country</dd>
+    <dt class="col-sm-3">@Localizer["Website"]</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrEmpty(Model.Website))
+        {
+            <a href="@Model.Website" target="_blank" rel="noopener">@Model.Website</a>
+        }
+    </dd>
+    <dt class="col-sm-3">@Localizer["SupportPhone"]</dt><dd class="col-sm-9">@Model.SupportPhone</dd>
+    <dt class="col-sm-3">@Localizer["SupportEmail"]</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrEmpty(Model.SupportEmail))
+        {
+            <a href="mailto:@Model.SupportEmail">@Model.SupportEmail</a>
+        }
+    </dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["Edit"]</a>
+<a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>

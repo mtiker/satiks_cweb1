@@ -1,0 +1,39 @@
+@model WebApp.Areas.Admin.ViewModels.Location.LocationCreateEditViewModel
+@{ ViewData["Title"] = Localizer["CreateLocation"]; }
+
+<h2>@Localizer["CreateLocation"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="BuildingNameEn" class="form-label"></label>
+                <input asp-for="BuildingNameEn" class="form-control" />
+                <span asp-validation-for="BuildingNameEn" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BuildingNameEt" class="form-label"></label>
+                <input asp-for="BuildingNameEt" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Floor" class="form-label"></label>
+                <input asp-for="Floor" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="RoomNumber" class="form-label"></label>
+                <input asp-for="RoomNumber" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label"></label>
+                <input asp-for="Address" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

@@ -1,0 +1,16 @@
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar min-vh-100 py-3">
+    <div class="text-white px-3 mb-3 fw-bold fs-5">LabTrack Admin</div>
+    <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bi bi-speedometer2 me-2"></i>@Localizer["Dashboard"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Equipment" asp-action="Index"><i class="bi bi-tools me-2"></i>@Localizer["Equipment"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Booking" asp-action="Index"><i class="bi bi-calendar-check me-2"></i>@Localizer["Bookings"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Laboratory" asp-action="Index"><i class="bi bi-building me-2"></i>@Localizer["Laboratories"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Department" asp-action="Index"><i class="bi bi-diagram-3 me-2"></i>@Localizer["Departments"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Location" asp-action="Index"><i class="bi bi-geo-alt me-2"></i>@Localizer["Locations"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="EquipmentCategory" asp-action="Index"><i class="bi bi-tags me-2"></i>@Localizer["Categories"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="Manufacturer" asp-action="Index"><i class="bi bi-factory me-2"></i>@Localizer["Manufacturers"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="MaintenanceRecord" asp-action="Index"><i class="bi bi-wrench-adjustable me-2"></i>@Localizer["Maintenance"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="CalibrationRecord" asp-action="Index"><i class="bi bi-rulers me-2"></i>@Localizer["Calibration"]</a></li>
+        <li class="nav-item"><a class="nav-link text-white" asp-area="Admin" asp-controller="TrainingCertification" asp-action="Index"><i class="bi bi-mortarboard me-2"></i>@Localizer["Training"]</a></li>
+    </ul>
+</nav>

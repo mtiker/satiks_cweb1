@@ -1,0 +1,43 @@
+@model App.DTO.v1.EquipmentDto
+@{ ViewData["Title"] = Localizer["Equipment"] + " " + Localizer["Details"]; }
+
+<h2>@Localizer["Equipment"] @Localizer["Details"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["Name"]</dt><dd class="col-sm-9">@Model.Name</dd>
+    <dt class="col-sm-3">@Localizer["Model"]</dt><dd class="col-sm-9">@Model.ModelName</dd>
+    <dt class="col-sm-3">@Localizer["SerialNumber"]</dt><dd class="col-sm-9">@Model.SerialNumber</dd>
+    <dt class="col-sm-3">@Localizer["Description"]</dt><dd class="col-sm-9">@Model.Description</dd>
+    <dt class="col-sm-3">@Localizer["PurchaseDate"]</dt><dd class="col-sm-9">@Model.PurchaseDate?.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["WarrantyExpiry"]</dt><dd class="col-sm-9">@Model.WarrantyExpiry?.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["PurchasePrice"]</dt><dd class="col-sm-9">@Model.PurchasePrice?.ToString("C")</dd>
+    <dt class="col-sm-3">@Localizer["Condition"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@GetConditionColor(Model.EquipmentCondition)">@Model.EquipmentCondition</span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["AvailableForBooking"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@(Model.IsAvailableForBooking ? "success" : "danger")">
+            @(Model.IsAvailableForBooking ? "Yes" : "No")
+        </span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["RequiresTraining"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@(Model.RequiresTraining ? "warning" : "secondary")">
+            @(Model.RequiresTraining ? "Yes" : "No")
+        </span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["Laboratory"]</dt><dd class="col-sm-9">@Model.LaboratoryName</dd>
+    <dt class="col-sm-3">@Localizer["Category"]</dt><dd class="col-sm-9">@Model.CategoryName</dd>
+    <dt class="col-sm-3">@Localizer["Manufacturer"]</dt><dd class="col-sm-9">@Model.ManufacturerName</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["Edit"]</a>
+<a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+
+@functions {
+    string GetConditionColor(string condition) => condition switch
+    {
+        "New" => "success", "Good" => "info", "Fair" => "warning",
+        "NeedsRepair" => "danger", "Decommissioned" => "secondary", _ => "secondary"
+    };
+}

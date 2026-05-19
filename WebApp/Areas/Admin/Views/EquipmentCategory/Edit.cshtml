@@ -1,0 +1,36 @@
+@model WebApp.Areas.Admin.ViewModels.EquipmentCategory.EquipmentCategoryCreateEditViewModel
+@{ ViewData["Title"] = Localizer["Edit"] + " " + Localizer["Category"]; }
+
+<h2>@Localizer["Edit"] + " " + @Localizer["Category"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="NameEn" class="form-label"></label>
+                <input asp-for="NameEn" class="form-control" />
+                <span asp-validation-for="NameEn" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NameEt" class="form-label"></label>
+                <input asp-for="NameEt" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3 form-check">
+                <input asp-for="RequiresTraining" class="form-check-input" />
+                <label asp-for="RequiresTraining" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

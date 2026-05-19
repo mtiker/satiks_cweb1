@@ -1,0 +1,21 @@
+@model App.DTO.v1.CalibrationRecordDto
+@{ ViewData["Title"] = Localizer["CalibrationRecordDetails"]; }
+
+<h2>@Localizer["CalibrationRecordDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">@Localizer["Equipment"]</dt><dd class="col-sm-9">@Model.EquipmentName</dd>
+    <dt class="col-sm-3">@Localizer["CalibrationDate"]</dt><dd class="col-sm-9">@Model.CalibrationDate.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["NextDue"]</dt><dd class="col-sm-9">@Model.NextCalibrationDue.ToString("d")</dd>
+    <dt class="col-sm-3">@Localizer["CertificateNumber"]</dt><dd class="col-sm-9">@Model.CertificateNumber</dd>
+    <dt class="col-sm-3">@Localizer["Result"]</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-@(Model.Passed ? "success" : "danger")">
+            @(Model.Passed ? "Passed" : "Failed")
+        </span>
+    </dd>
+    <dt class="col-sm-3">@Localizer["CalibratedBy"]</dt><dd class="col-sm-9">@Model.CalibratedByUserName</dd>
+    <dt class="col-sm-3">@Localizer["Notes"]</dt><dd class="col-sm-9">@Model.Notes</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["Edit"]</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

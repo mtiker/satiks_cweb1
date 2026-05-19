@@ -1,0 +1,31 @@
+@model WebApp.Areas.Admin.ViewModels.Booking.BookingIndexViewModel
+
+@{
+    ViewData["Title"] = Localizer["Bookings"];
+}
+
+@await Html.PartialAsync("_PageHeader", new WebApp.ViewModels.Shared.PageHeaderViewModel(
+    Localizer["Bookings"],
+    Localizer["Create"],
+    Url.Action("Create")))
+
+@await Html.PartialAsync("_SearchFilterBar", Model.FilterState)
+
+@await Component.InvokeAsync("DataTable", new {
+    rowsPartial = "~/Areas/Admin/Views/Booking/_Rows.cshtml",
+    model       = Model.Items,
+    config      = new WebApp.ViewModels.Shared.DataTableConfig
+    {
+        Columns =
+        [
+            Localizer["Equipment"],
+            Localizer["User"],
+            Localizer["StartTime"],
+            Localizer["EndTime"],
+            Localizer["Status"],
+            Localizer["Purpose"]
+        ]
+    }
+})
+
+@await Html.PartialAsync("_PaginationBar", Model)

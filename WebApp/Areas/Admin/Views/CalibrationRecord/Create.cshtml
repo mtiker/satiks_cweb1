@@ -1,0 +1,47 @@
+@model WebApp.Areas.Admin.ViewModels.CalibrationRecord.CalibrationRecordCreateEditViewModel
+@{ ViewData["Title"] = Localizer["CreateCalibrationRecord"]; }
+
+<h2>@Localizer["CreateCalibrationRecord"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="EquipmentId" class="form-label">Equipment</label>
+                <select asp-for="EquipmentId" asp-items="Model.EquipmentSelectList" class="form-select">
+                    <option value="">@Localizer["SelectEquipment"]</option>
+                </select>
+                <span asp-validation-for="EquipmentId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CalibrationDate" class="form-label"></label>
+                <input asp-for="CalibrationDate" class="form-control" type="date" />
+                <span asp-validation-for="CalibrationDate" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NextCalibrationDue" class="form-label"></label>
+                <input asp-for="NextCalibrationDue" class="form-control" type="date" />
+                <span asp-validation-for="NextCalibrationDue" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CertificateNumber" class="form-label"></label>
+                <input asp-for="CertificateNumber" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3 form-check">
+                <input asp-for="Passed" class="form-check-input" />
+                <label asp-for="Passed" class="form-check-label">@Localizer["Passed"]</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

@@ -1,0 +1,91 @@
+@model WebApp.Areas.Admin.ViewModels.Equipment.EquipmentCreateEditViewModel
+@{ ViewData["Title"] = Localizer["AddEquipment"]; }
+
+<h2>@Localizer["AddEquipment"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-7">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="NameEn" class="form-label"></label>
+                <input asp-for="NameEn" class="form-control" />
+                <span asp-validation-for="NameEn" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NameEt" class="form-label"></label>
+                <input asp-for="NameEt" class="form-control" />
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label asp-for="SerialNumber" class="form-label"></label>
+                    <input asp-for="SerialNumber" class="form-control" />
+                </div>
+                <div class="col mb-3">
+                    <label asp-for="ModelName" class="form-label"></label>
+                    <input asp-for="ModelName" class="form-control" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DescriptionEn" class="form-label"></label>
+                <textarea asp-for="DescriptionEn" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DescriptionEt" class="form-label"></label>
+                <textarea asp-for="DescriptionEt" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label asp-for="PurchaseDate" class="form-label"></label>
+                    <input asp-for="PurchaseDate" class="form-control" type="date" />
+                </div>
+                <div class="col mb-3">
+                    <label asp-for="WarrantyExpiry" class="form-label"></label>
+                    <input asp-for="WarrantyExpiry" class="form-control" type="date" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PurchasePrice" class="form-label"></label>
+                <input asp-for="PurchasePrice" class="form-control" type="number" step="0.01" min="0" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="EquipmentCondition" class="form-label">@Localizer["Condition"]</label>
+                <select asp-for="EquipmentCondition" asp-items="Model.ConditionSelectList" class="form-select">
+                    <option value="">@Localizer["SelectCondition"]</option>
+                </select>
+                <span asp-validation-for="EquipmentCondition" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LaboratoryId" class="form-label">@Localizer["Laboratory"]</label>
+                <select asp-for="LaboratoryId" asp-items="Model.LaboratorySelectList" class="form-select">
+                    <option value="">@Localizer["SelectLaboratory"]</option>
+                </select>
+                <span asp-validation-for="LaboratoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="EquipmentCategoryId" class="form-label">@Localizer["Category"]</label>
+                <select asp-for="EquipmentCategoryId" asp-items="Model.CategorySelectList" class="form-select">
+                    <option value="">@Localizer["SelectCategory"]</option>
+                </select>
+                <span asp-validation-for="EquipmentCategoryId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ManufacturerId" class="form-label">@Localizer["Manufacturer"]</label>
+                <select asp-for="ManufacturerId" asp-items="Model.ManufacturerSelectList" class="form-select">
+                    <option value="">@Localizer["SelectManufacturer"]</option>
+                </select>
+                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-check">
+                <input asp-for="IsAvailableForBooking" class="form-check-input" />
+                <label asp-for="IsAvailableForBooking" class="form-check-label">@Localizer["AvailableForBooking"]</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

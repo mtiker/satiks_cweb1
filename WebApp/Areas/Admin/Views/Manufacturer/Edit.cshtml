@@ -1,0 +1,44 @@
+@model WebApp.Areas.Admin.ViewModels.Manufacturer.ManufacturerCreateEditViewModel
+@{ ViewData["Title"] = Localizer["EditManufacturer"]; }
+
+<h2>@Localizer["EditManufacturer"]</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="NameEn" class="form-label"></label>
+                <input asp-for="NameEn" class="form-control" />
+                <span asp-validation-for="NameEn" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NameEt" class="form-label"></label>
+                <input asp-for="NameEt" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Country" class="form-label"></label>
+                <input asp-for="Country" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Website" class="form-label"></label>
+                <input asp-for="Website" class="form-control" type="url" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="SupportPhone" class="form-label"></label>
+                <input asp-for="SupportPhone" class="form-control" type="tel" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="SupportEmail" class="form-label"></label>
+                <input asp-for="SupportEmail" class="form-control" type="email" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); } }

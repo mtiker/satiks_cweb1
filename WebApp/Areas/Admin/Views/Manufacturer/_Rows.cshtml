@@ -1,0 +1,18 @@
+@model IReadOnlyList<WebApp.Areas.Admin.ViewModels.Manufacturer.ManufacturerListItem>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td class="text-muted">@item.Country</td>
+        <td class="text-muted small">@item.Website</td>
+        <td class="text-muted small">@item.SupportPhone</td>
+        <td class="text-muted small">@item.SupportEmail</td>
+        <td class="text-end">
+            <div class="btn-group btn-group-sm">
+                <a asp-area="Admin" asp-controller="Manufacturer" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                <a asp-area="Admin" asp-controller="Manufacturer" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+                <a asp-area="Admin" asp-controller="Manufacturer" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </td>
+    </tr>
+}

@@ -1,0 +1,61 @@
+@model WebApp.Areas.Admin.ViewModels.Home.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = Localizer["AdminDashboard"];
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>@Localizer["AdminDashboard"]</h1>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">@Localizer["TotalEquipment"]</h5>
+                    <p class="card-text display-4">@Model.TotalEquipment</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">@Localizer["TotalBookings"]</h5>
+                    <p class="card-text display-4">@Model.TotalBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">@Localizer["PendingBookings"]</h5>
+                    <p class="card-text display-4">@Model.PendingBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">@Localizer["ActiveBookings"]</h5>
+                    <p class="card-text display-4">@Model.ActiveBookings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>@Localizer["AdminMenu"]</h3>
+            <ul class="list-group">
+                <a href="@Url.Action("Index", "Department", new { area = "Admin" })">@Localizer["ManageDepartments"]</a>
+                <a href="@Url.Action("Index", "Equipment", new { area = "Admin" })">@Localizer["ManageEquipment"]</a>
+                <a href="@Url.Action("Index", "Booking", new { area = "Admin" })">@Localizer["ManageBookings"]</a>
+                <a href="@Url.Action("Index", "TrainingCertification", new { area = "Admin" })">@Localizer["TrainingCertifications"]</a>
+                <a href="@Url.Action("Index", "CalibrationRecord", new { area = "Admin" })">@Localizer["CalibrationRecords"]</a>
+                <a href="@Url.Action("Index", "MaintenanceRecord", new { area = "Admin" })">@Localizer["MaintenanceRecords"]</a></ul>
+        </div>
+    </div>
+</div>

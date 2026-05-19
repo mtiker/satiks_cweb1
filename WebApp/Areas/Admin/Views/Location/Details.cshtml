@@ -1,0 +1,14 @@
+@model App.DTO.v1.LocationDto
+@{ ViewData["Title"] = Localizer["LocationDetails"]; }
+
+<h2>@Localizer["LocationDetails"]</h2>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">Building Name (EN)</dt><dd class="col-sm-9">@Model.BuildingNameEn</dd>
+    <dt class="col-sm-3">Building Name (ET)</dt><dd class="col-sm-9">@Model.BuildingNameEt</dd>
+    <dt class="col-sm-3">Floor</dt><dd class="col-sm-9">@Model.Floor</dd>
+    <dt class="col-sm-3">Room Number</dt><dd class="col-sm-9">@Model.RoomNumber</dd>
+    <dt class="col-sm-3">Address</dt><dd class="col-sm-9">@Model.Address</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">@Localizer["Edit"]</a>
+<a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
