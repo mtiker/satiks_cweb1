@@ -1,0 +1,36 @@
+# NOTE: JWT__Key is shown here as plaintext for local development only.
+# In any real deployment, supply this via Docker secrets or a secrets manager — never commit a real key.
+services:
+  labtrack-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: labtrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  labtrack-web:
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=labtrack-db;Port=5432;Database=labtrack;Username=postgres;Password=postgres
+      - JWT__Key=super-secret-key-for-labtrack-min-32-chars!!
+      - JWT__Issuer=labtrack-backend
+      - JWT__Audience=labtrack-clients
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DataInitialization__MigrateDatabase=true
+      - DataInitialization__SeedIdentity=true
+      - DataInitialization__SeedData=true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - labtrack-db
+    restart: unless-stopped
+
+volumes:
+  pgdata:
