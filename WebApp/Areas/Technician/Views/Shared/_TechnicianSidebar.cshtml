@@ -1,0 +1,31 @@
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar min-vh-100 py-3"
+     style="background: linear-gradient(180deg, #1a3a4a 0%, #0d2233 100%) !important;">
+    <div class="text-white px-3 mb-3 fw-bold fs-5">
+        <i class="bi bi-tools me-2 text-warning"></i>LabTrack Tech
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Technician" asp-controller="TechnicianHome" asp-action="Index">
+                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Technician" asp-controller="Maintenance" asp-action="Index">
+                <i class="bi bi-wrench-adjustable me-2"></i>Maintenance
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Technician" asp-controller="Calibration" asp-action="Index">
+                <i class="bi bi-rulers me-2"></i>Calibration
+            </a>
+        </li>
+        <li class="nav-item mt-3">
+            <hr class="border-secondary" />
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white-50" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-house me-2"></i>Main Site
+            </a>
+        </li>
+    </ul>
+</nav>

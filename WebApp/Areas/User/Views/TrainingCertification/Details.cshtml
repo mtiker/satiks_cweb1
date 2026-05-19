@@ -1,0 +1,91 @@
+@using App.DTO.v1
+@model TrainingCertificationDto
+
+@{
+    ViewData["Title"] = Localizer["CertificationDetails"];
+    string badgeColor = Model.Status switch
+    {
+        "Approved" => "success",
+        "Pending"  => "warning",
+        "Rejected" => "danger",
+        "Revoked"  => "danger",
+        "Expired"  => "secondary",
+        _          => "secondary"
+    };
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">
+                    <i class="bi bi-mortarboard me-2"></i>@Localizer["CertificationDetails"]
+                </h4>
+                <span class="badge bg-@badgeColor fs-6">@Model.Status</span>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">@Localizer["EquipmentCategory"]</dt>
+                    <dd class="col-sm-8">@Model.EquipmentCategoryName</dd>
+
+                    <dt class="col-sm-4">@Localizer["CertifiedDate"]</dt>
+                    <dd class="col-sm-8">@Model.CertifiedDate.ToString("d")</dd>
+
+                    <dt class="col-sm-4">@Localizer["ExpiryDate"]</dt>
+                    <dd class="col-sm-8">@(Model.ExpiryDate?.ToString("d") ?? "—")</dd>
+
+                    <dt class="col-sm-4">@Localizer["CertificateReference"]</dt>
+                    <dd class="col-sm-8">@(Model.CertificateReference ?? "—")</dd>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ValidationComment))
+                    {
+                        <dt class="col-sm-4">@Localizer["ValidationComment"]</dt>
+                        <dd class="col-sm-8">@Model.ValidationComment</dd>
+                    }
+                    @if (Model.ValidatedByUserName != null)
+                    {
+                        <dt class="col-sm-4">@Localizer["ReviewedBy"]</dt>
+                        <dd class="col-sm-8">@Model.ValidatedByUserName</dd>
+
+                        <dt class="col-sm-4">@Localizer["ReviewedAt"]</dt>
+                        <dd class="col-sm-8">@Model.ValidatedAt?.ToString("g")</dd>
+                    }
+                </dl>
+
+                @if (Model.Status == "Pending")
+                {
+                    <div class="alert alert-warning py-2">
+                        <i class="bi bi-hourglass-split me-1"></i>@Localizer["CertPendingNote"]
+                    </div>
+                }
+                else if (Model.Status == "Approved")
+                {
+                    <div class="alert alert-success py-2">
+                        <i class="bi bi-check-circle me-1"></i>@Localizer["CertApprovedNote"]
+                    </div>
+                }
+                else if (Model.Status is "Rejected" or "Revoked")
+                {
+                    <div class="alert alert-danger py-2">
+                        <i class="bi bi-x-circle me-1"></i>@Localizer["CertRejectedNote"]
+                    </div>
+                }
+            </div>
+            <div class="card-footer d-flex gap-2">
+                @if (Model.Status == "Pending")
+                {
+                    <a asp-area="User" asp-action="Edit" asp-controller="TrainingCertification"
+                       asp-route-id="@Model.Id" class="btn btn-outline-warning btn-sm">
+                        <i class="bi bi-pencil me-1"></i>@Localizer["Edit"]
+                    </a>
+                    <a asp-area="User" asp-action="Delete" asp-controller="TrainingCertification"
+                       asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash me-1"></i>@Localizer["Delete"]
+                    </a>
+                }
+                <a asp-area="User" asp-action="Index" asp-controller="TrainingCertification"
+                   class="btn btn-secondary btn-sm">@Localizer["BackToList"]</a>
+            </div>
+        </div>
+    </div>
+</div>

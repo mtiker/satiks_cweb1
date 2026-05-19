@@ -1,0 +1,56 @@
+@model App.DTO.v1.EquipmentDto
+@{
+    ViewData["Title"] = Localizer["Details"];
+}
+
+<div class="container mt-4">
+    <h2>@Model.Name</h2>
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Localizer["SerialNumber"]</dt>
+                <dd class="col-sm-9">@Model.SerialNumber</dd>
+
+                <dt class="col-sm-3">@Localizer["Description"]</dt>
+                <dd class="col-sm-9">@(Model.Description ?? "—")</dd>
+
+                <dt class="col-sm-3">@Localizer["Categories"]</dt>
+                <dd class="col-sm-9">@Model.CategoryName</dd>
+
+                <dt class="col-sm-3">@Localizer["Manufacturers"]</dt>
+                <dd class="col-sm-9">@Model.ManufacturerName</dd>
+
+                <dt class="col-sm-3">@Localizer["Laboratories"]</dt>
+                <dd class="col-sm-9">@Model.LaboratoryName</dd>
+
+                <dt class="col-sm-3">@Localizer["Condition"]</dt>
+                <dd class="col-sm-9">@Model.EquipmentCondition</dd>
+
+                <dt class="col-sm-3">@Localizer["RequiresTraining"]</dt>
+                <dd class="col-sm-9">@(Model.RequiresTraining ? "Yes" : "No")</dd>
+
+                <dt class="col-sm-3">@Localizer["Status"]</dt>
+                <dd class="col-sm-9">
+                    @if (Model.IsAvailableForBooking)
+                    {
+                        <span class="badge bg-success">@Localizer["Available"]</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Unavailable</span>
+                    }
+                </dd>
+            </dl>
+
+            @if (Model.IsAvailableForBooking && User.Identity!.IsAuthenticated)
+            {
+                <a asp-area="User" asp-controller="Booking" asp-action="Create"
+                   asp-route-equipmentId="@Model.Id"
+                   class="btn btn-success">@Localizer["BookThis"]</a>
+            }
+            <a asp-area="User" asp-action="Index" asp-controller="Equipment" class="btn btn-outline-secondary ms-2">
+                @Localizer["BackToList"]
+            </a>
+        </div>
+    </div>
+</div>

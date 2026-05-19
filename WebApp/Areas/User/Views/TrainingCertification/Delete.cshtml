@@ -1,0 +1,41 @@
+@using App.DTO.v1
+@model TrainingCertificationDto
+
+@{
+    ViewData["Title"] = Localizer["DeleteCertification"];
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger shadow-sm">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="bi bi-trash me-2"></i>@Localizer["DeleteCertification"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    @Localizer["ConfirmDeleteTrainingCertification"]
+                </div>
+                <dl class="row">
+                    <dt class="col-sm-5">@Localizer["EquipmentCategory"]</dt>
+                    <dd class="col-sm-7">@Model.EquipmentCategoryName</dd>
+                    <dt class="col-sm-5">@Localizer["CertifiedDate"]</dt>
+                    <dd class="col-sm-7">@Model.CertifiedDate.ToString("d")</dd>
+                    <dt class="col-sm-5">@Localizer["Status"]</dt>
+                    <dd class="col-sm-7">@Model.Status</dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex gap-2">
+                <form asp-area="User" asp-action="Delete" asp-controller="TrainingCertification"
+                      asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>@Localizer["Delete"]
+                    </button>
+                </form>
+                <a asp-area="User" asp-action="Index" asp-controller="TrainingCertification"
+                   class="btn btn-secondary">@Localizer["Cancel"]</a>
+            </div>
+        </div>
+    </div>
+</div>

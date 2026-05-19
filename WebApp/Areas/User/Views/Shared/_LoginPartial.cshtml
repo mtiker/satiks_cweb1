@@ -1,0 +1,70 @@
+@using Microsoft.AspNetCore.Identity
+@using App.Domain.Identity
+
+@inject SignInManager<AppUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form id="logoutForm" class="d-inline">
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> @User.Identity?.Name
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="#">@Localizer["Profile"]</a></li>
+
+                @if (User.IsInRole("admin"))
+                {
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-primary fw-semibold"
+                           asp-area="Admin" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-speedometer2 me-1"></i>@Localizer["AdminDashboard"]
+                        </a>
+                    </li>
+                }
+
+                @if (User.IsInRole("technician"))
+                {
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-success fw-semibold"
+                           asp-area="Technician" asp-controller="TechnicianHome" asp-action="Index">
+                            <i class="bi bi-tools me-1"></i>Technician Dashboard
+                        </a>
+                    </li>
+                }
+
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <button type="submit" class="dropdown-item"
+                            onclick="document.getElementById('logoutForm').submit();">
+                        @Localizer["Logout"]
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <script>
+        document.getElementById('logoutForm').onsubmit = async function (e) {
+            e.preventDefault();
+            await fetch('@Url.Action("Logout", "Account", new { area = "User" })', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': document.querySelector(
+                        'input[name="__RequestVerificationToken"]')?.value
+                }
+            }).then(() => window.location.href = '@Url.Action("Login", "Account", new { area = "User" })');
+        };
+    </script>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="User" asp-controller="Account" asp-action="Login">
+            @Localizer["Login"]
+        </a>
+    </li>
+}

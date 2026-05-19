@@ -1,0 +1,69 @@
+@model IEnumerable<App.DTO.v1.BookingDto>
+@{
+    ViewData["Title"] = Localizer["MyBookings"];
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">@Localizer["MyBookings"]</h2>
+        <a asp-area="User" asp-action="Create" asp-controller="Booking" class="btn btn-primary">
+            @Localizer["NewBooking"]
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>@Localizer["Equipment"]</th>
+                    <th>@Localizer["StartTime"]</th>
+                    <th>@Localizer["EndTime"]</th>
+                    <th>@Localizer["Purpose"]</th>
+                    <th>@Localizer["Status"]</th>
+                    <th class="text-end">@Localizer["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">@Localizer["NoRecordsFound"]</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        var badgeClass = item.BookingStatus switch
+                        {
+                            "Confirmed"  => "success",
+                            "Pending"    => "warning",
+                            "Cancelled"  => "secondary",
+                            "Completed"  => "primary",
+                            _            => "secondary"
+                        };
+                        <tr>
+                            <td>@item.EquipmentName</td>
+                            <td>@item.StartTime.ToLocalTime().ToString("g")</td>
+                            <td>@item.EndTime.ToLocalTime().ToString("g")</td>
+                            <td>@(item.Purpose ?? "-")</td>
+                            <td>
+                                <span class="badge bg-@badgeClass">@item.BookingStatus</span>
+                            </td>
+                            <td class="text-end">
+                                @if (item.BookingStatus == "Pending" || item.BookingStatus == "Confirmed")
+                                {
+                                    <form asp-area="User" asp-action="Cancel" asp-controller="Booking"
+                                          asp-route-id="@item.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Cancel"]</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+@model MaintenanceEditViewModel
+
+@{
+    ViewData["Title"] = "Update Maintenance Record";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><i class="bi bi-pencil-square me-2 text-warning"></i>Update Maintenance Record</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark fw-semibold">
+                <i class="bi bi-wrench me-2"></i>@Model.EquipmentName
+            </div>
+            <div class="card-body">
+                <div class="alert alert-light border mb-3">
+                    <strong>Description:</strong> @Model.Description
+                </div>
+
+                <form asp-area="Technician" asp-controller="Maintenance" asp-action="Edit"
+                      asp-route-id="@Model.Id" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="EquipmentName" />
+                    <input type="hidden" asp-for="Description" />
+                    <input type="hidden" asp-for="IsScheduled" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="CompletedDate" class="form-label fw-semibold">Completed Date</label>
+                        <input asp-for="CompletedDate" type="datetime-local" class="form-control" />
+                        <span asp-validation-for="CompletedDate" class="text-danger small"></span>
+                        <div class="form-text">Set this date to mark the maintenance as completed.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Resolution" class="form-label fw-semibold">Resolution</label>
+                        <textarea asp-for="Resolution" class="form-control" rows="4"
+                                  placeholder="Describe what was done to resolve the issue…"></textarea>
+                        <span asp-validation-for="Resolution" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Cost" class="form-label fw-semibold">Cost (€)</label>
+                        <input asp-for="Cost" type="number" step="0.01" min="0" class="form-control"
+                               placeholder="0.00" />
+                        <span asp-validation-for="Cost" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-save me-1"></i>Save Changes
+                        </button>
+                        <a asp-area="Technician" asp-controller="Maintenance" asp-action="Index"
+                           class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
